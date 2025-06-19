@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, input, InputSignal} from '@angular/core';
+import {Monster} from '../../model/Monster';
 
 @Component({
   selector: 'app-new-customer',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './new-customer.component.css'
 })
 export class NewCustomerComponent {
-
+ monster : InputSignal<Monster> =  input(new Monster());
 }
