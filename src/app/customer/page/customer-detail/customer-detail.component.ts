@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Customer} from '../../model/Customer';
 import {CustomerService} from '../../service/customer.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-customer-detail',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, RouterLink],
   templateUrl: './customer-detail.component.html',
   styleUrl: './customer-detail.component.css'
 })

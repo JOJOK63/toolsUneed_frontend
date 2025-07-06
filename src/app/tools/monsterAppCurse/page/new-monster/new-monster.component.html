@@ -1,0 +1,13 @@
+
+<div class="card max-w-full max-h-full" [style.background-color]="backgroundColor()">
+  <p>{{monster().name}}</p>
+  <p>{{monster().hp}}</p>
+  <img [src]="monsterTypeIcon()" alt="icon énergie" class="w-10 h-10 object-contain">
+  <img [src]="monster().image" alt="image du pkmn" class="w-32 h-32 object-contain">
+  <p>{{monster().figureCaption}}</p>
+
+  <p>{{monster().attackName}}</p>
+  <p>{{monster().attackStrength}}</p>
+  <p>{{monster().attackDescription}}</p>
+</div>
+

@@ -3,6 +3,8 @@ import { CustomerListComponent } from './customer/page/customer-list/customer-li
 import { CustomerDetailComponent } from './customer/page/customer-detail/customer-detail.component';
 import { NewCustomerComponent } from './customer/page/new-customer/new-customer.component';
 import {DashboardComponent} from './page/dashboard/dashboard.component';
+import {MonsterListComponent} from './tools/monsterAppCurse/page/monster-list/monster-list.component';
+import {NewMonsterComponent} from './tools/monsterAppCurse/page/new-monster/new-monster.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +17,8 @@ export const routes: Routes = [
     component: DashboardComponent,
     title: 'Dashboard'
   },
+
+  ////customer
   {
     path: 'customer',
     component: CustomerListComponent,
@@ -29,5 +33,18 @@ export const routes: Routes = [
     path: 'customer/:id',
     component: CustomerDetailComponent,
     title: 'Détail du client'
+  }
+
+  ////monster curse
+  ,
+  {
+    path: 'monster',
+    component: MonsterListComponent,
+    title: 'Liste de monstres'
+  },
+  {
+    path: 'monster/new',
+    component: NewMonsterComponent,
+    title: 'nouveau monstre'
   }
 ];

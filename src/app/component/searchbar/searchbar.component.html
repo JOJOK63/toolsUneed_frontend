@@ -1,7 +1,46 @@
-<div id="search-bar" class="text-center" >
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Template HTML -->
+<div id="search-bar" class="text-center">
   <label class="input ">
-    <input type="search" class="grow" placeholder="Votre recherche" [ngModel]="searchText" (ngModelChange)="updateSearchText($event)"/>
-    <svg (click)="searchClick()"  class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <input
+      type="search"
+      class=" bg-base-100 text-base-content mr-15"
+      placeholder="Votre recherche"
+      [(ngModel)]="searchText"
+
+    />
+
+    <!-- Bouton effacer (croix ou poubelle) -->
+    <button
+      *ngIf="searchText()"
+      type="button"
+      class="absolute right-12 top-1/2 transform -translate-y-1/2 h-5 w-5 text-base-content opacity-60 hover:opacity-100 hover:text-warning-content transition-colors duration-200"
+      (click)="clearSearch()"
+      aria-label="Effacer la recherche"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- Icône de recherche -->
+    <svg
+      (click)="searchClick()"
+      class="absolute right-3 top-1/2 transform -translate-y-1/2 h-[1em] opacity-60 hover:opacity-100 cursor-pointer transition-opacity"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
       <g
         stroke-linejoin="round"
         stroke-linecap="round"

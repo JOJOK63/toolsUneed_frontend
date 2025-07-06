@@ -1,9 +1,4 @@
-
-<div class="card">
-  <p>{{monster().name}}</p>
-  <p>{{monster().hp}}</p>
-  <p>{{monster().figureCaption}}</p>
-  <p>{{monster().attackName}}</p>
-  <p>{{monster().attackStrength}}</p>
-  <p>{{monster().attackDescription}}</p>
+<div class="flex flex-col justify-center items-center min-h-[calc(100vh-4rem)] bg-red-300">
+  <label for="name">Name: </label>
+  <input id="name" type="text" [formControl]="newCustomerControl">
 </div>

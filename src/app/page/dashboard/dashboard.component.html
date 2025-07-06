@@ -1,7 +1,10 @@
-<p>dashboard works!</p>
-<app-searchbar
-  [(searchText)]="searchText"
-></app-searchbar>
-Votre recherche : {{searchText}}
-  <app-new-customer   ></app-new-customer>
-  <app-new-customer [monster]="monster1"></app-new-customer>
+<div class=" w-full min-h-[calc(100vh-4rem)] flex flex-col center ">
+  <div class="my-4">
+    <app-searchbar></app-searchbar>
+  </div>
+  <div class=" w-full bg-red-50">
+    <ul class="">
+      <li><a routerLink="/customer">👥 Liste clients</a></li>
+    </ul>
+  </div>
+</div>
