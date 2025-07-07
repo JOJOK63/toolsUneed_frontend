@@ -5,6 +5,7 @@ import { NewCustomerComponent } from './customer/page/new-customer/new-customer.
 import {DashboardComponent} from './page/dashboard/dashboard.component';
 import {MonsterListComponent} from './tools/monsterAppCurse/page/monster-list/monster-list.component';
 import {NewMonsterComponent} from './tools/monsterAppCurse/page/new-monster/new-monster.component';
+import {NotFoundComponent} from './page/not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -46,5 +47,10 @@ export const routes: Routes = [
     path: 'monster/new',
     component: NewMonsterComponent,
     title: 'nouveau monstre'
+  },
+
+  {
+    path: '**',
+    component: NotFoundComponent
   }
 ];

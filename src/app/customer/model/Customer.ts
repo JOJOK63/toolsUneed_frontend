@@ -5,5 +5,7 @@ export interface Customer {
   firstname: string;
   lastname: string;
   email: string;
-  role: CustomerRole;
+  // role: CustomerRole;
+  role : boolean
+  //createdAt
 }

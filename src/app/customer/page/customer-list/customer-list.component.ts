@@ -1,7 +1,8 @@
-import { Component,OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CustomerService} from '../../service/customer.service';
 import {Customer} from '../../model/Customer';
 import {RouterLink} from '@angular/router';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-customer-list',
@@ -20,9 +21,11 @@ export class CustomerListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.customerService.customerList().subscribe((data:any)=>{
+ this.customerService.customerList().subscribe((data:any)=>{
       this.customerData=data;
       console.log(this.customerData);
     })
   }
+
+
 }

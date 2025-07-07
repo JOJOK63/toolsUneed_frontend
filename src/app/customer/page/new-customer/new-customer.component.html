@@ -1,4 +1,87 @@
 <div class="flex flex-col justify-center items-center min-h-[calc(100vh-4rem)] bg-red-300">
-  <label for="name">Name: </label>
-  <input id="name" type="text" [formControl]="newCustomerControl">
+  <form #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm)">
+
+    <div class="form-group">
+      <label for="firstname">Prénom</label>
+      <input
+        id="firstname"
+        name="firstname"
+        type="text"
+        [(ngModel)]="customer.firstname"
+        #firstname="ngModel"
+        required
+        minlength="2"
+        class="form-control"
+        [class.is-invalid]="firstname.invalid && firstname.touched">
+
+      <!-- Messages d'erreur -->
+      <div *ngIf="firstname.invalid && firstname.touched" class="error-messages">
+        <small *ngIf="firstname.errors?.['required']">Le prénom est requis</small>
+        <small *ngIf="firstname.errors?.['minlength']">Le prénom doit contenir au moins 2 caractères</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastname">Nom</label>
+      <input
+        id="lastname"
+        name="lastname"
+        type="text"
+        [(ngModel)]="customer.lastname"
+        #lastname="ngModel"
+        required
+        minlength="2"
+        class="form-control"
+        [class.is-invalid]="lastname.invalid && lastname.touched">
+
+      <div *ngIf="lastname.invalid && lastname.touched" class="error-messages">
+        <small *ngIf="lastname.errors?.['required']">Le nom est requis</small>
+        <small *ngIf="lastname.errors?.['minlength']">Le nom doit contenir au moins 2 caractères</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        [(ngModel)]="customer.email"
+        #email="ngModel"
+        required
+        email
+        class="form-control"
+        [class.is-invalid]="email.invalid && email.touched">
+
+      <div *ngIf="email.invalid && email.touched" class="error-messages">
+        <small *ngIf="email.errors?.['required']">L'email est requis</small>
+        <small *ngIf="email.errors?.['email']">L'email doit être valide</small>
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <button
+        type="submit"
+        [disabled]="!customerForm.valid"
+        class="btn btn-primary">
+        Ajouter le client
+      </button>
+
+      <button
+        type="button"
+        (click)="resetForm()"
+        class="btn btn-secondary">
+        Réinitialiser
+      </button>
+    </div>
+
+    <!-- Debug info (à supprimer en production) -->
+    <div class="debug-info">
+      <h4>Debug Info:</h4>
+      <p>Formulaire valide: {{customerForm.valid}}</p>
+      <p>Formulaire touché: {{customerForm.touched}}</p>
+      <p>Valeurs: {{customer | json}}</p>
+    </div>
+  </form>
 </div>
