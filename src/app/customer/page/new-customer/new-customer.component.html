@@ -1,87 +1,110 @@
-<div class="flex flex-col justify-center items-center min-h-[calc(100vh-4rem)] bg-red-300">
-  <form #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm)">
+<div class="flex flex-col justify-center items-center min-h-[calc(100vh-4rem)]">
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="bg-primary p-4">
 
-    <div class="form-group">
-      <label for="firstname">Prénom</label>
-      <input
-        id="firstname"
-        name="firstname"
-        type="text"
-        [(ngModel)]="customer.firstname"
-        #firstname="ngModel"
-        required
-        minlength="2"
-        class="form-control"
-        [class.is-invalid]="firstname.invalid && firstname.touched">
+    <fieldset class="fieldset">
+      <legend for="firstname" class="fieldset-legend mx-auto text-base uppercase">inscription</legend>
+      <div class="flex gap-x-4">
+        <div>
+          <input id="firstname" type="text" class="input"  placeholder="Prénom" formControlName="firstname">
+          <p class="error-message-form" *ngIf="customerForm.get('firstname')?.invalid && customerForm.get('firstname')?.touched"> Prénom requis (minimum 2 caractères)</p>
+        </div>
 
-      <!-- Messages d'erreur -->
-      <div *ngIf="firstname.invalid && firstname.touched" class="error-messages">
-        <small *ngIf="firstname.errors?.['required']">Le prénom est requis</small>
-        <small *ngIf="firstname.errors?.['minlength']">Le prénom doit contenir au moins 2 caractères</small>
+        <div>
+          <input  id="lastname" type="text" class="input" placeholder="NOM" formControlName="lastname" />
+          <p class="error-message-form" *ngIf="customerForm.get('lastname')?.invalid && customerForm.get('lastname')?.touched" >Nom requis (minimum 2 caractères)
+          </p>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="lastname">Nom</label>
-      <input
-        id="lastname"
-        name="lastname"
-        type="text"
-        [(ngModel)]="customer.lastname"
-        #lastname="ngModel"
-        required
-        minlength="2"
-        class="form-control"
-        [class.is-invalid]="lastname.invalid && lastname.touched">
+      <label for="email" class="input validator mx-auto">
+        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <g
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2.5"
+            fill="none"
+            stroke="currentColor"
+          >
+            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </g>
+        </svg>
+        <input id="email" type="email" placeholder="john@doe.com" required formControlName="email" />
+      </label>
+      <p class="error-message-form" *ngIf="customerForm.get('email')?.invalid && customerForm.get('email')?.touched">
+        Email requis et valide
+      </p>
 
-      <div *ngIf="lastname.invalid && lastname.touched" class="error-messages">
-        <small *ngIf="lastname.errors?.['required']">Le nom est requis</small>
-        <small *ngIf="lastname.errors?.['minlength']">Le nom doit contenir au moins 2 caractères</small>
+      <label for="password" class="input validator mx-auto">
+        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <g
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2.5"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"
+            ></path>
+            <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+          </g>
+        </svg>
+        <input
+          id="password"
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <button type="button" (click)="togglePasswordVisibility()">👁️</button>
+      </label>
+      <p class="error-message-form" *ngIf="customerForm.get('password')?.invalid && customerForm.get('password')?.touched">
+        Mot de passe requis (minimum 3 caractères)
+      </p>
+
+      <!-- AJOUT : Champ confirmPassword manquant -->
+      <label for="confirmPassword" class="input validator mx-auto">
+        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <g
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2.5"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"
+            ></path>
+            <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+          </g>
+        </svg>
+        <input
+          id="confirmPassword"
+          type="password"
+          placeholder="Confirmer le mot de passe"
+          formControlName="confirmPassword"
+        />
+      </label>
+      <p class="error-message-form" *ngIf="passwordsNotMatch()">
+        Les mots de passe ne correspondent pas
+      </p>
+
+      <div class="form-actions flex flex-col w-1/2 mx-auto gap-4">
+        <button
+          type="submit"
+          [disabled]="customerForm.invalid"
+          class="btn btn-secondary btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
+          Inscription
+        </button>
+
+        <button
+          type="button"
+          (click)="resetForm()"
+          class="btn btn-neutral btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
+          Réinitialiser
+        </button>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        [(ngModel)]="customer.email"
-        #email="ngModel"
-        required
-        email
-        class="form-control"
-        [class.is-invalid]="email.invalid && email.touched">
-
-      <div *ngIf="email.invalid && email.touched" class="error-messages">
-        <small *ngIf="email.errors?.['required']">L'email est requis</small>
-        <small *ngIf="email.errors?.['email']">L'email doit être valide</small>
-      </div>
-    </div>
-
-
-    <div class="form-actions">
-      <button
-        type="submit"
-        [disabled]="!customerForm.valid"
-        class="btn btn-primary">
-        Ajouter le client
-      </button>
-
-      <button
-        type="button"
-        (click)="resetForm()"
-        class="btn btn-secondary">
-        Réinitialiser
-      </button>
-    </div>
-
-    <!-- Debug info (à supprimer en production) -->
-    <div class="debug-info">
-      <h4>Debug Info:</h4>
-      <p>Formulaire valide: {{customerForm.valid}}</p>
-      <p>Formulaire touché: {{customerForm.touched}}</p>
-      <p>Valeurs: {{customer | json}}</p>
-    </div>
+    </fieldset>
   </form>
 </div>

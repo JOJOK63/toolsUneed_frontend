@@ -1,65 +1,114 @@
 import {Component} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Customer} from '../../model/Customer';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import {CustomerService} from '../../service/customer.service';
+import {NgIf} from '@angular/common';
 import {CustomerRole} from '../../../utils/user.utils';
-import {JsonPipe, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-new-customer',
   imports: [
     ReactiveFormsModule,
-    FormsModule,
-    JsonPipe,
-    NgIf
+    NgIf,
   ],
   standalone: true,
   templateUrl: './new-customer.component.html',
   styleUrl: './new-customer.component.css'
 })
 export class NewCustomerComponent {
+  showPassword: boolean = false;
 
-  customer: Customer={
-    firstname :'',
-    lastname:'',
-    email:'',
-    role: false,
-  };
-    constructor(private customerService: CustomerService) {
+  // FormGroup simple sans validateur personnalisé
+  customerForm = new FormGroup({
+    firstname: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+    ]),
+    lastname: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2)
+    ]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email,
+      Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8), // Plus sécurisé
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
+    ]),
+    confirmPassword: new FormControl('', [
+      Validators.required
+    ])
+  });
+
+  constructor(private customerService: CustomerService) {
+  }
+
+  // Méthode simple pour vérifier si les mots de passe correspondent
+  passwordsNotMatch(): boolean {
+    const password = this.customerForm.get('password')?.value;
+    const confirmPassword = this.customerForm.get('confirmPassword')?.value;
+    const confirmPasswordControl = this.customerForm.get('confirmPassword');
+    return password !== confirmPassword && (confirmPasswordControl?.touched || false);
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  onSubmit() {
+    // Vérification des mots de passe avant soumission
+    if (this.passwordsNotMatch()) {
+      console.log('Les mots de passe ne correspondent pas');
+      return;
     }
 
-    onSubmit(form:any) {
-      if(form.valid){
-        console.log('Valeurs du formulaire avant envoi :', this.customer);
-        this.customerService.newCustomer(this.customer).subscribe({
-            next: (customer: Customer) => {
-              console.log(customer.firstname);
-              console.log(customer.lastname);
-              console.log(customer.email);
-              console.log(customer.role);
-            },
-            error: (error)=>{
-              if (error.status === 409) {
-                console.error("⚠️ Ce client existe déjà.");
-                alert("adresse mail déjà utilisé");
-              } else {
-                console.error("❌ Erreur serveur :", error);
-              }
-            },
-            complete: () => {
-              console.log(`Customer ${this.customer.email} ajouté !`);
-            }
-          }
-        );
-      }
+    if (this.customerForm.valid) {
+      // 🎯 OPTION 1: Transformer les données directement dans onSubmit
+      const formData = this.customerForm.value;
+      console.log(formData);
+      const customerData = this.transformFormData(formData);
+      console.log(customerData);
+
+      // Envoyer au service
+      this.customerService.newCustomer(customerData).subscribe({
+        next: (response) => {
+          console.log('Client créé avec succès:', response);
+          this.resetForm();
+        },
+        error: (error) => {
+          console.error('Erreur lors de la création:', error);
+        }
+      });
+    } else {
+      console.log('Formulaire invalide');
     }
+  }
+
+
+
+  private transformFormData(formData: any) {
+    return {
+      firstname: formData.firstname?.trim().toLowerCase(),
+      lastname: formData.lastname?.trim().toLowerCase(),
+      email: formData.email?.trim().toLowerCase(),
+      password: formData.password,
+      role:  CustomerRole.USER // Validation ici
+// createdAt: new Date().toISOString(),
+
+    };
+  }
+
 
   resetForm() {
-    this.customer = {
-      firstname: '',
-      lastname: '',
-      email: '',
-      role: false
-    };
+    this.customerForm.reset();
+    this.showPassword = false;
   }
 }
