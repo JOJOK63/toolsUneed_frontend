@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {
-  AbstractControl,
+  AbstractControl, FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -22,34 +22,39 @@ import {CustomerRole} from '../../../utils/user.utils';
 })
 export class NewCustomerComponent {
   showPassword: boolean = false;
+  customerForm: FormGroup;
 
-  // FormGroup simple sans validateur personnalisé
-  customerForm = new FormGroup({
-    firstname: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2),
-    ]),
-    lastname: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2)
-    ]),
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email,
-      Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8), // Plus sécurisé
-      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
-    ]),
-    confirmPassword: new FormControl('', [
-      Validators.required
-    ])
-  });
 
-  constructor(private customerService: CustomerService) {
+  constructor(
+    private fb: FormBuilder,
+    private customerService: CustomerService
+  ) {
+    // Création du formulaire avec FormBuilder
+    this.customerForm = this.fb.group({
+      firstname: ['', [
+        Validators.required,
+        Validators.minLength(2),
+      ]],
+      lastname: ['', [
+        Validators.required,
+        Validators.minLength(2)
+      ]],
+      email: ['', [
+        Validators.required,
+        Validators.email,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
+      ]],
+      confirmPassword: ['', [
+        Validators.required
+      ]]
+    });
   }
+
 
   // Méthode simple pour vérifier si les mots de passe correspondent
   passwordsNotMatch(): boolean {
