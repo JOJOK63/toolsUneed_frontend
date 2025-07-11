@@ -1,6 +1,14 @@
-<div class="navbar bg-base-100 shadow-sm">
-  <div class="flex-1">
-    <a class="btn btn-ghost text-xl">daisyUI</a>
+<div class=" w-full navbar bg-base-100 shadow-sm ">
+  <div class="flex-1 px-3 flex flex-row items-center justify-between">
+    <li><a routerLink="/" class="btn btn-ghost text-2xl">🛠️ Home</a></li>
+    <div>
+      <ul class="flex gap-5">
+        <li><a routerLink="/dashboard">🏠 Dashboard</a></li>
+        <li><a routerLink="/customer">👥 Liste clients</a></li>
+        <li><a routerLink="/customer/new">➕ Nouveau client</a></li>
+        <li><a routerLink="/monster">🗑️ curse</a></li>
+      </ul>
+    </div>
   </div>
 
   <!-- theme select -->

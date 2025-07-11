@@ -1,0 +1,14 @@
+<div class="card lg:card-side bg-base-100 shadow-sm  w-[80%] h-[80%]" *ngIf="customerDetail" >
+  <figure class="w-2/5">
+    <img
+      src="assets/img/{{customerDetail.firstname}}.png" alt="photo de l'utilisateur" class="w-full h-full"/>
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">{{customerDetail.firstname}} {{customerDetail.lastname}}</h2>
+    <p>{{customerDetail.email}}</p>
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary" (click)="deleteCustomer(customerDetail.id)">Supprimer</button>
+      <a routerLink="/customer"><button class="btn btn-primary" >Retour</button></a>
+    </div>
+  </div>
+</div>

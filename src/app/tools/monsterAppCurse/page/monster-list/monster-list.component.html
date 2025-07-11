@@ -1,0 +1,26 @@
+<app-searchbar
+  [(searchText)]="searchText"
+></app-searchbar>
+
+
+<div id="card-list" class="flex flex-col gap-30 justify-around items-center w-full h-40 p-20  mt-24"> @for (monster of filteredMonsters() ; track
+  monster.name) {
+  <div>
+    Index {{$index}}
+  </div>
+  <app-new-monster [monster]="monster"/>
+} @empty {
+  <div class="center"> No Monsters found ! </div>
+}
+
+  @if (filteredMonsters().length > 0){
+    <div class="center">
+      Found {{filteredMonsters().length}} monsters!
+    </div>
+  }
+
+  <div>
+    <button (click)="addMonster()"> ajouter un monste</button>
+  </div>
+</div>
+
