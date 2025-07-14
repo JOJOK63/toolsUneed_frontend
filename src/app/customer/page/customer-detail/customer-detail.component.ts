@@ -23,7 +23,7 @@ export class CustomerDetailComponent implements OnInit {
   ngOnInit(): void {
     const customerId = this.route.snapshot.params['id'];
     if (customerId) {
-      this.customerService.customerDetails(customerId).subscribe({
+      this.customerService.getCustomerById(customerId).subscribe({
         next: (customer) => {
           this.customerDetail = customer;
         },

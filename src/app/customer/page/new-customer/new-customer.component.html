@@ -1,17 +1,17 @@
-<div class="flex flex-col justify-center items-center min-h-[calc(100vh-4rem)]">
-  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="bg-primary p-4">
+<div class=" flex flex-col justify-center items-center w-full min-h-[calc(100vh-4rem)] ">
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="bg-primary w-1/2 h-[500px] overflow-auto rounded-2xl">
 
-    <fieldset class="fieldset">
-      <legend for="firstname" class="fieldset-legend mx-auto text-base uppercase">inscription</legend>
-      <div class="flex gap-x-4">
+    <fieldset class="fieldset w-full h-full p-6 flex flex-col justify-around items-center">
+      <legend for="firstname" class="fieldset-legend mx-auto text-base text-primary-content uppercase">inscription</legend>
+      <div class=" w-full flex flex-col gap-y-6 md:flex-row md:gap-x-10 justify-center">
         <div>
           <input id="firstname" type="text" class="input"  placeholder="Prénom" formControlName="firstname">
-          <p class="error-message-form" *ngIf="customerForm.get('firstname')?.invalid && customerForm.get('firstname')?.touched"> Prénom requis (minimum 2 caractères)</p>
+          <p class="error-message-form mt-2" *ngIf="customerForm.get('firstname')?.invalid && customerForm.get('firstname')?.touched"> Prénom requis (minimum 2 caractères)</p>
         </div>
 
         <div>
           <input  id="lastname" type="text" class="input" placeholder="NOM" formControlName="lastname" />
-          <p class="error-message-form" *ngIf="customerForm.get('lastname')?.invalid && customerForm.get('lastname')?.touched" >Nom requis (minimum 2 caractères)
+          <p class="error-message-form mt-2" *ngIf="customerForm.get('lastname')?.invalid && customerForm.get('lastname')?.touched" >Nom requis (minimum 2 caractères)
           </p>
         </div>
       </div>
@@ -80,7 +80,7 @@
         </svg>
         <input
           id="confirmPassword"
-          type="password"
+          [type]="showPassword ? 'text' : 'password'"
           placeholder="Confirmer le mot de passe"
           formControlName="confirmPassword"
         />
@@ -89,22 +89,23 @@
         Les mots de passe ne correspondent pas
       </p>
 
-      <div class="form-actions flex flex-col w-1/2 mx-auto gap-4">
+      <div class="form-actions flex justify-around gap-4">
         <button
           type="submit"
           [disabled]="customerForm.invalid"
-          class="btn btn-secondary btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
+          class="btn btn-secondary btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl flex-1">
           Inscription
         </button>
 
         <button
           type="button"
           (click)="resetForm()"
-          class="btn btn-neutral btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
+          class="btn btn-neutral btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl flex-1">
           Réinitialiser
         </button>
       </div>
 
     </fieldset>
   </form>
+
 </div>

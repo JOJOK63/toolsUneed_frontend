@@ -1,11 +1,10 @@
-<div class=" w-full navbar bg-base-100 shadow-sm ">
+<div class=" w-full navbar bg-base-100 shadow-sm bg-primary text-primary-content border-b-2 border-b-primary-content">
   <div class="flex-1 px-3 flex flex-row items-center justify-between">
     <li><a routerLink="/" class="btn btn-ghost text-2xl">🛠️ Home</a></li>
     <div>
       <ul class="flex gap-5">
         <li><a routerLink="/dashboard">🏠 Dashboard</a></li>
-        <li><a routerLink="/customer">👥 Liste clients</a></li>
-        <li><a routerLink="/customer/new">➕ Nouveau client</a></li>
+        <li><a routerLink="/budget">👥 Liste budgets</a></li>
         <li><a routerLink="/monster">🗑️ curse</a></li>
       </ul>
     </div>
@@ -13,7 +12,7 @@
 
   <!-- theme select -->
   <div class="mr-4">
-    <label class="form-control w-full max-w-xs">
+    <label class="form-control w-full max-w-xs text-primary">
       <select
         class="select select-bordered w-full max-w-xs"
         (change)="setTheme($event)"
@@ -27,7 +26,7 @@
   </div>
   <!-- div profil -->
   <div class="flex-none">
-    <div class="dropdown dropdown-end">
+    <div class="dropdown dropdown-end ">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
           <img
@@ -38,12 +37,12 @@
       </div>
       <ul
         tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow bg-primary border-2 border-primary-content"
       >
         <li>
           <a class="justify-between">
             Profile
-            <span class="badge">New</span>
+            <span class="badge"><a routerLink="/customer/new">➕ Nouveau</a></span>
           </a>
         </li>
         <li><a>Settings</a></li>

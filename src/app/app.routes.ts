@@ -6,6 +6,7 @@ import {DashboardComponent} from './page/dashboard/dashboard.component';
 import {MonsterListComponent} from './tools/monsterAppCurse/page/monster-list/monster-list.component';
 import {NewMonsterComponent} from './tools/monsterAppCurse/page/new-monster/new-monster.component';
 import {NotFoundComponent} from './page/not-found/not-found.component';
+import {BudgetListComponent} from './tools/budgetGestionApp/component/budget-list/budget-list.component';
 
 export const routes: Routes = [
   {
@@ -34,10 +35,22 @@ export const routes: Routes = [
     path: 'customer/:id',
     component: CustomerDetailComponent,
     title: 'Détail du client'
-  }
+  },
 
+  ////////////// budget
+  {
+    path: 'budget',
+    component: BudgetListComponent,
+    title: 'Liste des budgets'
+  },
+  ////// identification
+  // {
+  //   path: 'login',
+  //   component: ,
+  //   title: 'Authentification'
+  // }
   ////monster curse
-  ,
+
   {
     path: 'monster',
     component: MonsterListComponent,

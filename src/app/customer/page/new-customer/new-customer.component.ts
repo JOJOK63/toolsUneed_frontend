@@ -9,6 +9,7 @@ import {
 import {CustomerService} from '../../service/customer.service';
 import {NgIf} from '@angular/common';
 import {CustomerRole} from '../../../utils/user.utils';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-new-customer',
@@ -27,7 +28,8 @@ export class NewCustomerComponent {
 
   constructor(
     private fb: FormBuilder,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private router: Router
   ) {
     // Création du formulaire avec FormBuilder
     this.customerForm = this.fb.group({
@@ -76,16 +78,21 @@ export class NewCustomerComponent {
     }
 
     if (this.customerForm.valid) {
-      // 🎯 OPTION 1: Transformer les données directement dans onSubmit
       const formData = this.customerForm.value;
       console.log(formData);
       const customerData = this.transformFormData(formData);
       console.log(customerData);
 
       // Envoyer au service
-      this.customerService.newCustomer(customerData).subscribe({
+      this.customerService.createCustomer(customerData).subscribe({
         next: (response) => {
           console.log('Client créé avec succès:', response);
+
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 2000); // Attendre 2 secondes avant redirection
+
+
           this.resetForm();
         },
         error: (error) => {
