@@ -7,4 +7,5 @@ export interface Customer {
   email: string;
   password : string
   role: CustomerRole;
+  //TODO rajotuer image
 }
