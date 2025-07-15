@@ -6,4 +6,5 @@ export interface FinancialTransaction {
   type: string;
   createdAt: Date;
   budgetId: number;
+
 }

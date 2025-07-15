@@ -1,0 +1,32 @@
+<div class=" flex flex-col justify-center items-center w-full min-h-[calc(100vh-4rem)] ">
+  <form [formGroup]="budgetForm" (ngSubmit)="onSubmit()" class="bg-primary w-1/2 h-[500px] overflow-auto rounded-2xl">
+
+    <fieldset class="fieldset w-full h-full p-6 flex flex-col justify-around items-center">
+      <legend class="fieldset-legend mx-auto text-base text-primary-content uppercase">
+        {{ isEditMode ? 'Modifier budget' : 'Nouveau budget' }}
+      </legend>
+
+      <input type="text" placeholder="Nom" class="input input-primary" formControlName="name"/>
+      <input type="text" placeholder="Détails" class="input input-primary" formControlName="detail" />
+
+
+      <div class="form-actions flex justify-around gap-4">
+        <button
+          type="submit"
+          [disabled]="budgetForm.invalid"
+          class="btn btn-secondary btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl flex-1">
+          Valider
+        </button>
+
+        <button
+          type="button"
+          (click)="resetForm()"
+          class="btn btn-neutral btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl flex-1">
+          Réinitialiser
+        </button>
+      </div>
+
+    </fieldset>
+  </form>
+
+</div>

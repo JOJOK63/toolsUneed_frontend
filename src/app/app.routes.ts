@@ -6,7 +6,8 @@ import {DashboardComponent} from './page/dashboard/dashboard.component';
 import {MonsterListComponent} from './tools/monsterAppCurse/page/monster-list/monster-list.component';
 import {NewMonsterComponent} from './tools/monsterAppCurse/page/new-monster/new-monster.component';
 import {NotFoundComponent} from './page/not-found/not-found.component';
-import {BudgetListComponent} from './tools/budgetGestionApp/component/budget-list/budget-list.component';
+import {BudgetListComponent} from './tools/budgetGestionApp/page/budget-list/budget-list.component';
+import {NewBudgetComponent} from './tools/budgetGestionApp/page/new-budget/new-budget.component';
 
 export const routes: Routes = [
   {
@@ -43,6 +44,16 @@ export const routes: Routes = [
     component: BudgetListComponent,
     title: 'Liste des budgets'
   },
+  {
+    path: 'budget/new',
+    component: NewBudgetComponent,
+    title: "Nouveau budget",
+  },
+  {
+    path: 'budget/new/:id',
+    component: NewBudgetComponent,
+    title: "Nouveau budget",
+  },
   ////// identification
   // {
   //   path: 'login',
@@ -61,7 +72,11 @@ export const routes: Routes = [
     component: NewMonsterComponent,
     title: 'nouveau monstre'
   },
-
+  {
+    path: 'monster/new/:id',
+    component: NewMonsterComponent,
+    title: 'nouveau monstre'
+  },
   {
     path: '**',
     component: NotFoundComponent

@@ -21,12 +21,39 @@ export class BudgetService {
     return this.budgetLists;
   }
 
-  // getBudgetById(id: number): Budget | undefined { ... }
-  // getBudgetsByCustomer(customerId: number): Budget[] { ... }
+   getBudgetById(id: number): Budget | undefined {
+    return this.budgetLists.find(budget => budget.id === id);
+   }
+
+   getBudgetsByCustomer(customerId: number): Budget[] {
+    return this.budgetLists.filter(budget => budget.customerId === customerId);
+   }
 
 // Écriture
-//   createBudget(budget: Budget): Budget { ... }
-//   updateBudget(id: number, budget: Budget): Budget | null { ... }
-//   deleteBudget(id: number): boolean { ... }
-// }
+   createBudget(budget: Budget): Budget {
+    this.budgetLists.push(budget);
+    return budget;
+   }
+
+  updateBudget(id: number, updatedBudget: Budget): Budget | null {
+    const index = this.budgetLists.findIndex(budget => budget.id === id);
+    if (index !== -1) {
+      this.budgetLists[index] = updatedBudget;
+      return updatedBudget;
+    }
+    return null;
+  }
+
+
+  deleteBudget(id: number): boolean {
+    const index = this.budgetLists.findIndex(budget => budget.id === id);
+
+    if (index !== -1) {
+      this.budgetLists.splice(index, 1); // Supprime 1 élément à l'index trouvé
+      return true;
+    }
+
+    return false; // Aucun budget trouvé avec cet id
+  }
+
 }
