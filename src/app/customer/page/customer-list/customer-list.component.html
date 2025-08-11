@@ -9,7 +9,8 @@
 
       <li class="list-row">
         <div class="text-4xl font-thin opacity-30 tabular-nums">{{customer.id}}</div>
-        <div><img class="size-10 rounded-box" src="assets/img/{{customer.firstname}}.png"/></div>
+<!--        <div><img class="size-10 rounded-box" src="assets/img/{{customer.firstname}}.png"/></div>-->
+        <div><img class="size-10 rounded-box" src="{{customer.image}}"></div>
         <div class="list-col-grow">
           <div><span class="uppercase">{{customer.lastname}} </span><span class="capitalize">{{customer.firstname}}</span></div>
           <div class="text-xs font-semibold opacity-60">{{customer.email}}</div>

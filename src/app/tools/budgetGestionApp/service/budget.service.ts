@@ -1,59 +1,44 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {Budget} from '../model/Budget';
+import {Observable} from 'rxjs';
+import {Customer} from '../../../customer/model/Customer';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BudgetService {
-  budgetLists: Array<Budget> = [];
+  private baseUrl = "http://localhost:8080/api/budget";
 
-  constructor() {
-    this.budgetLists = [
-      {id: 1, name: 'Budget Alimentaire', detail: 'Courses et restaurants', customerId: 1},
-      {id: 2, name: 'Budget Transport', detail: 'Essence et transport public', customerId: 1},
-      // ... autres budgets
-    ];
+  constructor(private http: HttpClient) {
   }
 
 
   // Lecture
-  getAllBudgets(): Budget[] {
-    return this.budgetLists;
+  getAllBudgets(): Observable<Budget[]> {
+    return this.http.get<Budget[]>(`${this.baseUrl}`);
   }
 
-   getBudgetById(id: number): Budget | undefined {
-    return this.budgetLists.find(budget => budget.id === id);
+   getBudgetById(id: number): Observable<Budget> {
+     return this.http.get<Budget>(`${this.baseUrl}/${id}`);
    }
 
-   getBudgetsByCustomer(customerId: number): Budget[] {
-    return this.budgetLists.filter(budget => budget.customerId === customerId);
-   }
-
-// Écriture
-   createBudget(budget: Budget): Budget {
-    this.budgetLists.push(budget);
-    return budget;
-   }
-
-  updateBudget(id: number, updatedBudget: Budget): Budget | null {
-    const index = this.budgetLists.findIndex(budget => budget.id === id);
-    if (index !== -1) {
-      this.budgetLists[index] = updatedBudget;
-      return updatedBudget;
+    getBudgetsByCustomerId(customerId: number): Observable<Budget[]> {
+     return this.http.get<Budget[]>(`${this.baseUrl}?customerId=${customerId}`);
     }
-    return null;
+
+   createBudget(budget: Budget): Observable<Budget> {
+    return this.http.post<Budget>(`${this.baseUrl}`, budget);
+   }
+
+
+  deleteBudget(budgetId: number): Observable<void> {
+   return this.http.delete<void>(`${this.baseUrl}/${budgetId}`);
   }
 
 
-  deleteBudget(id: number): boolean {
-    const index = this.budgetLists.findIndex(budget => budget.id === id);
-
-    if (index !== -1) {
-      this.budgetLists.splice(index, 1); // Supprime 1 élément à l'index trouvé
-      return true;
-    }
-
-    return false; // Aucun budget trouvé avec cet id
+  updateBudget( budget: Budget): Observable<Budget> {
+    return this.http.put<Budget>(`${this.baseUrl}/${budget.id}`, budget);
   }
 
 }

@@ -33,6 +33,11 @@ export const routes: Routes = [
     title: 'Créer un client'
   },
   {
+    path: 'customer/new/:id',
+    component: NewCustomerComponent,
+    title: 'Créer un client'
+  },
+  {
     path: 'customer/:id',
     component: CustomerDetailComponent,
     title: 'Détail du client'

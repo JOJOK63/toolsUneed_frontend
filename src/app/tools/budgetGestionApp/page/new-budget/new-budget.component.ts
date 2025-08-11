@@ -57,40 +57,45 @@ export class NewBudgetComponent implements OnInit {
           detail: formData.detail,
           customerId: 1
         };
-        this.budgetService.updateBudget(this.budgetId!, budgetData);
+        this.budgetService.updateBudget( budgetData).subscribe({
+          next: () => {
+            this.budgetForm.reset();
+            this.router.navigate(['/budget']);
+          },
+          error: (error) => console.error('Erreur update:', error)
+        })
       } else {
-        // Mode création
         const budgetData = this.transformFormData(formData);
-        this.budgetService.createBudget(budgetData);
-      }
 
-      this.budgetForm.reset();
-      this.router.navigate(['/budget']);
+        this.budgetService.createBudget(budgetData).subscribe({
+          next: () => {
+            this.budgetForm.reset();
+            this.router.navigate(['/budget']);
+          },
+          error: (error) => console.error('Erreur création:', error)
+        });
+      }
     }
   }
 
   private transformFormData(formData: any) {
     return{
-      id: this.generateId(),
       name: formData.name,
       detail:formData.detail,
       customerId:1,
     }
   }
-//temporaire
-  private generateId(): number {
-    return this.budgetService.getAllBudgets().length + 1;
-  }
 
   private loadBudgetData() {
-    // Charge les données du budget à modifier
-    const budget = this.budgetService.getAllBudgets().find(b => b.id === this.budgetId);
-    if (budget) {
-      this.budgetForm.patchValue({
-        name: budget.name,
-        detail: budget.detail
-      });
-    }
+    this.budgetService.getBudgetById(this.budgetId!).subscribe({
+      next: (budget) => {
+        this.budgetForm.patchValue({
+          name: budget.name,
+          detail: budget.detail
+        });
+      },
+      error: (error) => console.error('Erreur chargement budget:', error)
+    });
   }
 
   resetForm(){

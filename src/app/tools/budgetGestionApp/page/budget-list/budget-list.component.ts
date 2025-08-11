@@ -4,6 +4,7 @@ import {BudgetService} from '../../service/budget.service';
 import {FormsModule} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
 import {NewBudgetComponent} from '../new-budget/new-budget.component';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-budget-list',
@@ -16,7 +17,7 @@ import {NewBudgetComponent} from '../new-budget/new-budget.component';
   styleUrl: './budget-list.component.css'
 })
 export class BudgetListComponent implements OnInit {
-  budgetLists: Budget[] = [];
+  budgetsList: Budget[] = [];
   selectedBudgetId: number| null = null;
   selectedBudget: Budget | undefined = undefined;
 
@@ -24,14 +25,15 @@ export class BudgetListComponent implements OnInit {
 
 
   ngOnInit( ) {
-      this.budgetLists = this.budgetService.getAllBudgets();
-      console.log(this.budgetLists);
-      this.refreshBudgetList()
+      this.budgetService.getAllBudgets().subscribe((data:any)=>{
+        this.budgetsList=data;
+    })
+   // this.refreshBudgetList();
   }
 
   onBudgetChange() {
     if(this.selectedBudgetId){
-      this.selectedBudget = this.budgetLists.find(budget => budget.id === Number(this.selectedBudgetId))
+      this.selectedBudget = this.budgetsList.find(budget => budget.id === Number(this.selectedBudgetId))
     }else{
       this.selectedBudget = undefined
     }
@@ -40,21 +42,23 @@ export class BudgetListComponent implements OnInit {
   deleteBudget(id: number | null) {
     if (id === null) return;
 
-    const success = this.budgetService.deleteBudget(Number(id));
-
-    if (success) {
-      // Mets à jour la liste
-      this.budgetLists = this.budgetLists.filter(b => b.id !== id);
-      this.selectedBudgetId = null;
-      this.selectedBudget = undefined;
-    } else {
-      console.error('Erreur : impossible de supprimer le budget');
-    }
+    console.log('deleteBudget', id);
+    console.log(this.selectedBudgetId)
+    this.budgetService.deleteBudget(Number(id)).subscribe({
+      next: ()=> {
+        this.budgetsList = this.budgetsList.filter(b => b.id !== id);
+        this.selectedBudgetId = null;
+        this.selectedBudget = undefined;
+      },
+      error: (error)=> {
+        console.error('erreur suppression :',error);
+      }
+    })
   }
 
-  updateBudget(id: number, updatedBudget: Budget) {
-    this.budgetService.updateBudget(id, updatedBudget)
-  }
+  // updateBudget(id: number, updatedBudget: Budget) {
+  //   this.budgetService.updateBudget(id, updatedBudget)
+  // }
 
   editBudget(id: number | null) {
     if (id) {
@@ -62,7 +66,7 @@ export class BudgetListComponent implements OnInit {
     }
   }
 
-  refreshBudgetList() {
-    this.budgetLists = this.budgetService.getAllBudgets();
-  }
+  // refreshBudgetList() {
+  //   this.budgetList = this.budgetService.getAllBudgets();
+  // }
 }

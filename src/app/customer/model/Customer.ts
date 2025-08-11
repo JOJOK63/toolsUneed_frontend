@@ -5,7 +5,7 @@ export interface Customer {
   firstname: string;
   lastname: string;
   email: string;
-  password : string
+  password? : string
   role: CustomerRole;
-  //TODO rajotuer image
+  image:string;
 }
