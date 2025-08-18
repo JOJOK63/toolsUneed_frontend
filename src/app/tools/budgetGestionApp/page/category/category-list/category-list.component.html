@@ -1,0 +1,30 @@
+<div class="overflow-x-auto">
+  <table class="table table-xs ">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Nom</th>
+      <th>Couleur</th>
+      <th>Icône</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (category of categoryData; track category.id){
+        <tr>
+          <th>{{category.id}}</th>
+          <td>{{category.name}}</td>
+          <td>{{category.color}}</td>
+          <td>{{category.icon}}</td>
+          <td>
+            <button class="btn btn-neutre" (click)="editCategory() " >✏️</button>
+          </td>
+          <td>
+            <button class="btn btn-secondary" (click)="deleteCategory(category.id)">🗑️</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

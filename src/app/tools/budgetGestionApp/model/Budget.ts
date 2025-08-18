@@ -1,7 +1,9 @@
+import {Customer} from '../../../customer/model/Customer';
 
 export interface Budget {
   id?: number;
   name: string;
   detail: string;
-  customerId: number;
+  balance: number;
+  customer: Customer;
 }

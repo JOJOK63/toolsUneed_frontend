@@ -63,7 +63,7 @@ export class NewCustomerComponent implements OnInit {
       this.isEditMode = true;
       this.loadCustomerData();
       // Désactive la validation du mot de passe en mode édition
-      // this.disablePasswordValidators();
+      this.disablePasswordValidators();
     }
   }
 
@@ -166,10 +166,10 @@ export class NewCustomerComponent implements OnInit {
     this.showPassword = false;
   }
 
-  // private disablePasswordValidators() {
-  //   this.customerForm.get('password')?.clearValidators();
-  //   this.customerForm.get('confirmPassword')?.clearValidators();
-  //   this.customerForm.get('password')?.updateValueAndValidity();
-  //   this.customerForm.get('confirmPassword')?.updateValueAndValidity();
-  // }
+  private disablePasswordValidators() {
+    this.customerForm.get('password')?.clearValidators();
+    this.customerForm.get('confirmPassword')?.clearValidators();
+    this.customerForm.get('password')?.updateValueAndValidity();
+    this.customerForm.get('confirmPassword')?.updateValueAndValidity();
+  }
 }

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {NgIf} from '@angular/common';
+import {formatDate, NgIf} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BudgetService} from '../../service/budget.service';
-import {Budget} from '../../model/Budget';
+import {BudgetService} from '../../../service/budget.service';
+import {Budget} from '../../../model/Budget';
 
 @Component({
   selector: 'app-new-budget',
@@ -30,6 +30,9 @@ export class NewBudgetComponent implements OnInit {
       ]],
       detail:['',[
         Validators.required,
+      ]],
+      balance:['0.0',[
+        Validators.required,
       ]]
     })
   }
@@ -55,7 +58,10 @@ export class NewBudgetComponent implements OnInit {
           id: this.budgetId!,
           name: formData.name,
           detail: formData.detail,
-          customerId: 1
+          balance: formData.balance,
+          customer: {
+            id :1
+          }
         };
         this.budgetService.updateBudget( budgetData).subscribe({
           next: () => {
@@ -82,7 +88,10 @@ export class NewBudgetComponent implements OnInit {
     return{
       name: formData.name,
       detail:formData.detail,
-      customerId:1,
+      balance:formData.balance,
+      customer: {
+        id : 1
+      }
     }
   }
 
@@ -91,7 +100,8 @@ export class NewBudgetComponent implements OnInit {
       next: (budget) => {
         this.budgetForm.patchValue({
           name: budget.name,
-          detail: budget.detail
+          detail: budget.detail,
+          balance: budget.balance,
         });
       },
       error: (error) => console.error('Erreur chargement budget:', error)
