@@ -42,18 +42,23 @@ export class CategoryListComponent implements OnInit {
           this.categoryData = this.categoryData.filter(t => t.id !== categoryId);
         },
         error: (err) => {
-          console.error('Erreur complète:', err); // ← Ajoute ça
-          console.log('Status:', err.status);     // ← Et ça
-          console.log('Error body:', err.error);  // ← Et ça aussi
-
-          if (err.status === 400) {
-            alert(err.error);
-          } else {
-            alert("Erreur lors de la suppression");
+          switch(err.status) {
+            case 409: // Conflict
+              this.showError("Cette catégorie contient des sous-catégories");
+              break;
+            case 404: // Not Found
+              this.showError("Catégorie non trouvée");
+              break;
+            default:
+              this.showError("Erreur lors de la suppression");
           }
+          console.log(err.status);
         }
       });
     }
+  }
 
+  showError(message: string) {
+    alert(message);
   }
 }
