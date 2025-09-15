@@ -62,7 +62,7 @@ export class CustomerDetailComponent implements OnInit {
 
   editCustomer(id: any) {
     if(id){
-      this.router.navigate(['/customer/new', id]);
+      this.router.navigate(['/customer/edit', id]);
     }
   }
 

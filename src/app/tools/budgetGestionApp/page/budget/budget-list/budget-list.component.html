@@ -25,25 +25,22 @@
             <table class="table table-xs ">
               <thead>
               <tr>
-                <th>Nom</th>
-                <th>Détail</th>
-                <th>Total</th>
+                <th class="w-2/5">Nom</th>
+                <th class="w-2/5">Détail</th>
+                <th class="w-1/5">Total</th>
               </tr>
               </thead>
               <tbody>
               <tr>
-                <th>{{selectedBudget.name}}</th>
-                <th>{{selectedBudget.detail}}</th>
-                <th>{{selectedBudget.balance}}</th>
+                <th class="w-2/5">{{selectedBudget.name}}</th>
+                <th class="w-2/5">{{selectedBudget.detail}}</th>
+                <th class="w-1/5">{{selectedBudget.balance}}</th>
               </tr>
               </tbody>
             </table>
           } @else {
           <h3 class="text-center m-2">Veuillez sélectionner un budget</h3>
         }
-
-
-
         <div>
           <app-transaction-list  ></app-transaction-list>
         </div>

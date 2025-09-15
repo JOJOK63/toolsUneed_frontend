@@ -15,6 +15,9 @@ import {CategoryListComponent} from './tools/budgetGestionApp/page/category/cate
 import {
   SubCategoryListComponent
 } from './tools/budgetGestionApp/page/sub-category/sub-category-list/sub-category-list.component';
+import {
+  NewSubCategoryComponent
+} from './tools/budgetGestionApp/page/sub-category/new-sub-category/new-sub-category.component';
 
 export const routes: Routes = [
   {
@@ -40,9 +43,9 @@ export const routes: Routes = [
     title: 'Créer un client'
   },
   {
-    path: 'customer/new/:id',
+    path: 'customer/edit/:id',
     component: NewCustomerComponent,
-    title: 'Créer un client'
+    title: 'Modifier un client'
   },
   {
     path: 'customer/:id',
@@ -62,7 +65,7 @@ export const routes: Routes = [
     title: "Nouveau budget",
   },
   {
-    path: 'budget/new/:id',
+    path: 'budget/edit/:id',
     component: NewBudgetComponent,
     title: "Nouveau budget",
   },
@@ -93,6 +96,16 @@ export const routes: Routes = [
     path : 'sub-category',
     component: SubCategoryListComponent,
     title: 'Liste des sous catégories'
+  },
+  {
+    path: 'sub-category/new',
+    component: NewSubCategoryComponent,
+    title: "Nouvelle sous catégorie",
+  },
+  {
+    path: 'sub-category/edit/:id',
+    component: NewSubCategoryComponent,
+    title: "Modifier une sous catégorie",
   },
 
   ////monster curse

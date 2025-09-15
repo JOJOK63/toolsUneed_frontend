@@ -70,8 +70,4 @@ export class BudgetListComponent implements OnInit {
     }
   }
 
-  // refreshBudgetList() {
-  // }
-
-
 }

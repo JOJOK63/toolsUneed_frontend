@@ -1,1 +1,30 @@
-<p>sub-category-list works!</p>
+<div class="overflow-x-auto">
+  <table class="table table-xs ">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Nom</th>
+      <th>Icône</th>
+      <th>Actif</th>
+      <th>Category</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (subCategory of subCategoriesData; track subCategory.id){
+        <tr>
+          <th>{{subCategory.id}}</th>
+          <td>{{subCategory.name}}</td>
+          <td>{{subCategory.icon}}</td>
+          <td>{{subCategory.isActive}}</td>
+          <td>{{subCategory.category.name}}</td>
+          <td>
+            <button class="btn btn-neutre" (click)="editSubCategory(subCategory.id) " >✏️</button>
+          </td>
+          <td>
+            <button class="btn btn-secondary" (click)="deleteSubCategory(subCategory.id)">🗑️</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
