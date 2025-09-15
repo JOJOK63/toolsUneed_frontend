@@ -13,17 +13,19 @@ import {NgIf} from '@angular/common';
 })
 export class CustomerDetailComponent implements OnInit {
   customerDetail!: Customer;
+  selectedCustomerId: number |undefined = undefined;
+
 
   constructor(
     private customerService: CustomerService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
-    const customerId = this.route.snapshot.params['id'];
-    if (customerId) {
-      this.customerService.customerDetails(customerId).subscribe({
+    this.selectedCustomerId = this.route.snapshot.params['id'];
+    if (this.selectedCustomerId) {
+      this.customerService.getCustomerById(this.selectedCustomerId).subscribe({
         next: (customer) => {
           this.customerDetail = customer;
         },
@@ -57,4 +59,12 @@ export class CustomerDetailComponent implements OnInit {
       });
     }
   }
+
+  editCustomer(id: any) {
+    if(id){
+      this.router.navigate(['/customer/edit', id]);
+    }
+  }
+
+
 }

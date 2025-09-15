@@ -6,6 +6,18 @@ import {DashboardComponent} from './page/dashboard/dashboard.component';
 import {MonsterListComponent} from './tools/monsterAppCurse/page/monster-list/monster-list.component';
 import {NewMonsterComponent} from './tools/monsterAppCurse/page/new-monster/new-monster.component';
 import {NotFoundComponent} from './page/not-found/not-found.component';
+import {BudgetListComponent} from './tools/budgetGestionApp/page/budget/budget-list/budget-list.component';
+import {NewBudgetComponent} from './tools/budgetGestionApp/page/budget/new-budget/new-budget.component';
+import {
+  TransactionListComponent
+} from './tools/budgetGestionApp/page/transaction/transaction-list/transaction-list.component';
+import {CategoryListComponent} from './tools/budgetGestionApp/page/category/category-list/category-list.component';
+import {
+  SubCategoryListComponent
+} from './tools/budgetGestionApp/page/sub-category/sub-category-list/sub-category-list.component';
+import {
+  NewSubCategoryComponent
+} from './tools/budgetGestionApp/page/sub-category/new-sub-category/new-sub-category.component';
 
 export const routes: Routes = [
   {
@@ -19,7 +31,7 @@ export const routes: Routes = [
     title: 'Dashboard'
   },
 
-  ////customer
+  /////////////     Customer
   {
     path: 'customer',
     component: CustomerListComponent,
@@ -31,13 +43,72 @@ export const routes: Routes = [
     title: 'Créer un client'
   },
   {
+    path: 'customer/edit/:id',
+    component: NewCustomerComponent,
+    title: 'Modifier un client'
+  },
+  {
     path: 'customer/:id',
     component: CustomerDetailComponent,
     title: 'Détail du client'
-  }
+  },
+
+  //////////////     Budget
+  {
+    path: 'budget',
+    component: BudgetListComponent,
+    title: 'Liste des budgets'
+  },
+  {
+    path: 'budget/new',
+    component: NewBudgetComponent,
+    title: "Nouveau budget",
+  },
+  {
+    path: 'budget/edit/:id',
+    component: NewBudgetComponent,
+    title: "Nouveau budget",
+  },
+  ///////////////   Identification
+  // {
+  //   path: 'login',
+  //   component: ,
+  //   title: 'Authentification'
+  // }
+
+  ////// Transaction
+
+  {
+    path : 'transaction',
+    component: TransactionListComponent,
+    title: 'Liste des transactions'
+  },
+
+  ///// Category
+  {
+    path : 'category',
+    component: CategoryListComponent,
+    title: 'Liste des catégories'
+  },
+
+  ///// Sub Category
+  {
+    path : 'sub-category',
+    component: SubCategoryListComponent,
+    title: 'Liste des sous catégories'
+  },
+  {
+    path: 'sub-category/new',
+    component: NewSubCategoryComponent,
+    title: "Nouvelle sous catégorie",
+  },
+  {
+    path: 'sub-category/edit/:id',
+    component: NewSubCategoryComponent,
+    title: "Modifier une sous catégorie",
+  },
 
   ////monster curse
-  ,
   {
     path: 'monster',
     component: MonsterListComponent,
@@ -48,7 +119,11 @@ export const routes: Routes = [
     component: NewMonsterComponent,
     title: 'nouveau monstre'
   },
-
+  {
+    path: 'monster/new/:id',
+    component: NewMonsterComponent,
+    title: 'nouveau monstre'
+  },
   {
     path: '**',
     component: NotFoundComponent

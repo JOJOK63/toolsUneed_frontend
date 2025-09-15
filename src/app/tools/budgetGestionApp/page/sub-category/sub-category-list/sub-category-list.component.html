@@ -1,0 +1,30 @@
+<div class="overflow-x-auto">
+  <table class="table table-sm ">
+    <thead>
+    <tr>
+      <th><button class="btn btn-active btn-accent text-accent-content" routerLink="/sub-category/new" > Ajouter </button></th>
+      <th>Nom</th>
+      <th>Icône</th>
+      <th>Actif</th>
+      <th>Catégorie</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (subCategory of subCategoriesData; track subCategory.id){
+        <tr>
+          <th>{{subCategory.id}}</th>
+          <td>{{subCategory.name}}</td>
+          <td>{{subCategory.icon}}</td>
+          <td>{{subCategory.isActive}}</td>
+          <td>{{subCategory.category.icon}} {{subCategory.category.name}}</td>
+          <td>
+            <button class="btn btn-neutre" (click)="editSubCategory(subCategory.id) " >✏️</button>
+          </td>
+          <td>
+            <button class="btn btn-secondary" (click)="deleteSubCategory(subCategory.id)">🗑️</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

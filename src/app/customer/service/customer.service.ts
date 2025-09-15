@@ -12,15 +12,15 @@ export class CustomerService {
 
   constructor(private http:HttpClient) { }
 
-  customerList(): Observable<Customer[]> {
+  getAllCustomers(): Observable<Customer[]> {
     return this.http.get<Customer[]>(`${this.baseUrl}`);
   }
 
-  customerDetails(id:number):Observable<Customer>{
+  getCustomerById(id:number):Observable<Customer>{
     return this.http.get<Customer>(`${this.baseUrl}/${id}`);
   }
 
-  newCustomer(customer:Customer):Observable<Customer>{
+  createCustomer(customer:Customer):Observable<Customer>{
     return this.http.post<Customer>(`${this.baseUrl}`, customer);
   }
 

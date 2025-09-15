@@ -1,0 +1,44 @@
+<div class="overflow-x-auto">
+  <table class="table table-xs">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Nom</th>
+      <th>Montant</th>
+      <th>Detail</th>
+      <th>Type</th>
+      <th>Crée le</th>
+      <th>Catégorie</th>
+      <th>Sous catégorie</th>
+      <th>Budget</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (transaction of transactionData; track transaction.id){
+    <tr>
+      <th>{{transaction.id}}</th>
+      <td>{{transaction.name}}</td>
+      <td>{{transaction.amount}}</td>
+      <td>{{transaction.detail}}</td>
+      <td>{{transaction.type}}</td>
+      @if(transaction.updatedAt){
+        <td>{{transaction.updatedAt}}</td>
+      }@else{
+        <td>{{transaction.createdAt}}</td>
+      }
+      <td>{{transaction.category.icon}}</td>
+      <td>{{ transaction.subCategory?.icon || '' }}</td>
+      <td>{{transaction.budget.name}}</td>
+      <td>
+        <button class="btn btn-neutre" (click)="editTransaction() " >✏️</button>
+      </td>
+      <td>
+        <button class="btn btn-secondary" (click)="deleteTransaction(transaction.id)">🗑️</button>
+      </td>
+    </tr>
+    }
+    </tbody>
+  </table>
+</div>

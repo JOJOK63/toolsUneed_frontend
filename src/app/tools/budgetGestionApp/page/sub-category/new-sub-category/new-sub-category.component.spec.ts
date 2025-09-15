@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { NewSubCategoryComponent } from './new-sub-category.component';
+
+describe('NewSubCategoryComponent', () => {
+  let component: NewSubCategoryComponent;
+  let fixture: ComponentFixture<NewSubCategoryComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NewSubCategoryComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(NewSubCategoryComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
