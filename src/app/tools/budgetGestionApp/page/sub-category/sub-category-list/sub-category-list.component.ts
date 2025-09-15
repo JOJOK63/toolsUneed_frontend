@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import {SubCategory} from '../../../model/SubCategory';
 import {SubCategoryService} from '../../../service/sub-category.service';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-sub-category-list',
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './sub-category-list.component.html',
   styleUrl: './sub-category-list.component.css'
 })
