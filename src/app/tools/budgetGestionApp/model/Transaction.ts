@@ -11,6 +11,5 @@ export interface Transaction {
   createdAt: Date;
   updatedAt: Date;
   budget: Budget;
-  category: Category;
   subCategory: SubCategory;
 }

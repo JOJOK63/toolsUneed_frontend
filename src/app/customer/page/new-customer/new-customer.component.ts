@@ -136,7 +136,7 @@ export class NewCustomerComponent implements OnInit {
           next: (response) => {
             console.log('Client créé avec succès:', response);
             setTimeout(() => {
-              this.router.navigate(['/login']);
+              this.router.navigate(['/dashboard']);
             }, 2000);
             this.resetForm();
           },

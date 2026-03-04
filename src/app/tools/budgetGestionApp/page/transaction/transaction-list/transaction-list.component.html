@@ -28,8 +28,8 @@
       }@else{
         <td>{{transaction.createdAt}}</td>
       }
-      <td>{{transaction.category.icon}}</td>
-      <td>{{ transaction.subCategory?.icon || '' }}</td>
+      <td>{{transaction.subCategory.category.name}} {{transaction.subCategory.category.icon}}</td>
+      <td>{{ transaction.subCategory.name }} {{ transaction.subCategory.icon || '' }}</td>
       <td>{{transaction.budget.name}}</td>
       <td>
         <button class="btn btn-neutre" (click)="editTransaction() " >✏️</button>
